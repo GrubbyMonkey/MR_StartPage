@@ -31,10 +31,13 @@
     p {
       margin-bottom: 10px;
     }
-    #timer {
+    #timerContainer {
       text-align: center; /* Center-align the timer */
-      font-size: 36px;
       margin-top: 50px;
+    }
+    #timer {
+      font-size: 36px;
+      display: inline-block; /* Display as inline-block to center-align */
     }
     button {
       display: block;
@@ -50,6 +53,9 @@
     }
     button:hover {
       background-color: #45a049;
+    }
+    #instructions {
+      text-align: left; /* Left-align the instructions */
     }
     @media (max-width: 600px) {
       h1 {
@@ -71,35 +77,32 @@
   <div class="container">
     <h1>Lizzle</h1>
     <h2>Explore the world of words</h2>
-    <div id="content">
-      <p>Instructions:</p>
-      <ol>
-        <li>Type the words shown on the screen as fast as you can.</li>
-        <li>Each correct word will earn you points.</li>
-        <li>Try to score as high as possible within the time limit.</li>
-      </ol>
+    <div id="content" style="text-align: center;"> <!-- Center-align content -->
+      <div id="instructions" style="text-align: left;"> <!-- Left-align the instructions -->
+        <p>Instructions:</p>
+        <ol>
+          <li>Type the words shown on the screen as fast as you can.</li>
+          <li>Each correct word will earn you points.</li>
+          <li>Try to score as high as possible within the time limit.</li>
+        </ol>
+      </div>
+      <p id="timer" style="display: none;">All the best!</p> <!-- Center-align the timer -->
       <button id="startButton">Start Game</button>
     </div>
-    <div id="timer" style="display: none;"></div>
   </div>
 
   <script>
     document.getElementById("startButton").addEventListener("click", function() {
-      document.getElementById("content").style.display = "none"; // Hide content
-      document.getElementById("timer").style.display = "block"; // Show timer
-      var duration = 60; // Duration of the game in seconds
+      var content = document.getElementById("content");
+      content.removeChild(document.getElementById("startButton")); // Remove the start button
       var timerDisplay = document.getElementById("timer");
+      timerDisplay.style.display = "block"; // Show timer
+      var duration = 0; // Starting duration
       var timerInterval = setInterval(function() {
-        if (duration <= 0) {
-          clearInterval(timerInterval); // Stop the timer when duration reaches 0
-          timerDisplay.textContent = "Time's up!";
-          // Here you can add code to handle the end of the game
-        } else {
-          var minutes = Math.floor(duration / 60);
-          var seconds = duration % 60;
-          timerDisplay.textContent = minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0");
-          duration--; // Decrease duration by 1 second
-        }
+        var minutes = Math.floor(duration / 60);
+        var seconds = duration % 60;
+        timerDisplay.textContent = minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0");
+        duration++; // Increase duration by 1 second
       }, 1000); // Update the timer every second
     });
   </script>
