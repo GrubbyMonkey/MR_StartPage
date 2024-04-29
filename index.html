@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lizzle</title>
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4; /* Light background color */
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff; /* White background for container */
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Drop shadow */
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h2 {
+      text-align: center; /* Center-align the subtitle */
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 10px;
+    }
+    #timer {
+      text-align: center; /* Center-align the timer */
+      font-size: 36px;
+      margin-top: 50px;
+    }
+    button {
+      display: block;
+      margin: 0 auto;
+      padding: 10px 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+      h2 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 14px;
+      }
+      button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Lizzle</h1>
+    <h2>Explore the world of words</h2>
+    <div id="content">
+      <p>Instructions:</p>
+      <ol>
+        <li>Type the words shown on the screen as fast as you can.</li>
+        <li>Each correct word will earn you points.</li>
+        <li>Try to score as high as possible within the time limit.</li>
+      </ol>
+      <button id="startButton">Start Game</button>
+    </div>
+    <div id="timer" style="display: none;"></div>
+  </div>
+
+  <script>
+    document.getElementById("startButton").addEventListener("click", function() {
+      document.getElementById("content").style.display = "none"; // Hide content
+      document.getElementById("timer").style.display = "block"; // Show timer
+      var duration = 60; // Duration of the game in seconds
+      var timerDisplay = document.getElementById("timer");
+      var timerInterval = setInterval(function() {
+        if (duration <= 0) {
+          clearInterval(timerInterval); // Stop the timer when duration reaches 0
+          timerDisplay.textContent = "Time's up!";
+          // Here you can add code to handle the end of the game
+        } else {
+          var minutes = Math.floor(duration / 60);
+          var seconds = duration % 60;
+          timerDisplay.textContent = minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0");
+          duration--; // Decrease duration by 1 second
+        }
+      }, 1000); // Update the timer every second
+    });
+  </script>
+</body>
+</html>
